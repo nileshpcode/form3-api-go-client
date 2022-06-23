@@ -28,7 +28,7 @@ func newAccountService(c *resty.Client) *accountService {
 
 const (
 	// AccountsAPIBaseURL indicates the base url of account api
-	AccountsAPIBaseURL = "organisation/accounts"
+	AccountsAPIBaseURL = "v1/organisation/accounts"
 )
 
 // Create creates an existing bank account with Form3 or create a new one. The country attribute must be specified as a minimum. Depending on the country, other attributes such as bank_id and bic are mandatory.
@@ -63,6 +63,7 @@ func (svc *accountService) Fetch(id uuid.UUID) (*AccountResponseDTO, error) {
 		fmt.Println(err, "Rsfewf")
 		return nil, ferror.NewAPIClientError(apiURL, nil, nil, fmt.Errorf("unable to invoke API: %w", err))
 	}
+	fmt.Println("SFDf")
 	defer resp.RawResponse.Body.Close()
 	responseBody := string(resp.Body())
 	if resp.StatusCode() != http.StatusOK { // All 3xx, 4xx, 5xx are considered errors
